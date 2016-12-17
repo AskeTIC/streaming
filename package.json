@@ -1,0 +1,30 @@
+{
+  "name": "transmitter",
+  "version": "0.1.0",
+  "description": "Prueba de concepto de servidor de Streaming en Node.js",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AskeTIC/transmitter.git"
+  },
+  "keywords": [
+    "streaming",
+    "media"
+  ],
+  "author": "@jonabasque",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/AskeTIC/transmitter/issues"
+  },
+  "homepage": "https://github.com/AskeTIC/transmitter#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.7.2"
+  }
+}
