@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cliente receptor</title>
+  </head>
+  <body>
+    <h1>Cliente del streaming</h1>
+    <img id="streaming" src="" alt="">
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      "use strict";
+      var io = io();
+      io.on('play video', function(imgs){
+        document.getElementById('streaming').src = imgs;
+      });
+    </script>
+  </body>
+</html>
