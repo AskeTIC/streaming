@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>transmitter server</title>
+  </head>
+  <body>
+    <h1>Servidor de streaming con transmitter</h1>
+    <video id="video"></video>
+    <canvas id="canvas" width="1280" height="720"></canvas>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      "use strict";
+      var io = io();
+      var startCamera = false;
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d'); //El 2d nos permite hacer mapas de bits dinámicos, el 3d aún no está.
+      console.log(navigator.mozGetUserMedia);
+
+      window.playVideo = (function(cb){
+        // a play vídeo le asigno el método requestAnimationFrame que exista en el navegador y....
+        //...le paso la function que ejecuta automaticamente esté método TODO: entender esto en la documentación.
+        return window.requestAnimationFrame ||
+               window.mozRequestAnimationFrame ||
+               window.webkitRequestAnimationFrame ||
+               function(cb){
+                 window.setTimeout(cb, 100); //en milisegundos
+               }
+      })();
+
+      navigator.streaming = (
+        navigator.getUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.webkitGetUserMedia
+      );
+
+      navigator.streaming({
+        video:true,
+        audio:false
+      }, function(stream){ //callback success
+        startCamera = true;
+        video.src = window.URL.createObjectURL(stream); //creamos un objeto manipulado desde la url TODO: entender...
+      }, function(error){ //callback error
+        console.log(error);
+      });
+
+      function streamVideo(context, video, canvas){
+        context.drawImage(video, 0, 0);
+        var ouput = canvas.toDataURL('image/jpeg', .2);
+
+        if(startCamera){
+          io.emit('streaming', function(ouputStream){});
+        }
+
+        playVideo(function(){
+          //inception
+          streamVideo(context, video, canvas);
+        });
+      }
+
+
+      window.addEventListener('load', function(){
+        video.style.display = 'none';
+        video.autoplay = true;
+        streamVideo(context, video, canvas);
+      });
+
+    </script>
+  </body>
+</html>

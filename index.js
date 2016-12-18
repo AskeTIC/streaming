@@ -1,11 +1,11 @@
 "use strict";
 //create web socket server
-var express = require('express')(); // guardo una instancia de express
-var http = require('http').createServer(express); //creo un server http con express TODO: entender mejor
+var app = require('express')(); // guardo una instancia de express
+var http = require('http').createServer(app); //creo un server http con express TODO: entender mejor
 var io = require('socket.io')(http); //creo una instancia de socket.io y le paso el server HTTP.
 
 //variables propias
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 2999;
 
 //
 http.listen(port, function(){
