@@ -14,12 +14,12 @@ http.listen(port, function(){
 
 //route for clients
 app.get("/", function(req, res){
-  res.sendFile(__dirname+"/example/client.html");
+  res.sendFile(__dirname+"/example/receptor.html");
 });
 
 //route for transmitter
 app.get("/transmitter", function(req, res){
-  res.sendFile(__dirname+"/example/server.html");
+  res.sendFile(__dirname+"/example/emisor.html");
 });
 
 //socket
